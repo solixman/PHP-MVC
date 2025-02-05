@@ -4,16 +4,17 @@
 
 class Database {
     private static $servername = "localhost";
-    private static $username = "root";
-    private static $password = "";
-    private static $dbname = "PHP-MVCDB";
+    private static $port = "5555";
+    private static $username= "postgres";
+    private static $password = "123123";
+    private static $dbname = "MVC";
     private static $connexion;
     private static $instance;
    
     private function __construct(){
         if (!self::$connexion) {
             try {
-                self::$connexion = new PDO("mysql:host=".self::$servername.";dbname=".self::$dbname.";charset=UTF8",self::$username,self::$password);
+                self::$connexion = new PDO("pgsql:host=".self::$servername.";port=".self::$port." dbname=".self::$dbname.";",self::$username,self::$password);
                 self::$connexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 echo("connexion done with no issues");
             } catch (PDOException $e) {
@@ -33,8 +34,6 @@ class Database {
         public function getConnection(){
             return self::$connexion;
         }
-
-
 
        
 }
